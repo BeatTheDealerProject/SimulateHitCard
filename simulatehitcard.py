@@ -73,10 +73,16 @@ def main():
     for j,num in enumerate([17,18,19,20,21,'burst']):
       resultM[i,j] = resulteachhit[hitcard][num]
 
-  p = np.array([2,4,4,4,4,4,4,4,15,4])/49.0
+  p = np.array([4,4,4,4,4,4,4,4,16,4])
+  for card in [upcard, pcard1, pcard2]:
+    if card == 'A':
+      p[9] -= 1
+    else:
+      p[int(card)-2] -= 1
+  p = p / 49.0
   M = np.reshape(p, (10,1)) * resultM
-
   result = np.round(np.sum(M, axis=0)/1000, 2)
+
   output = [upcard,pcard1,pcard2]
   output.extend(list(map(str, list(result))))
   print(','.join(output))
